@@ -98,7 +98,6 @@ func TestSaveGet(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	// TODO handle this error
 	defer os.Remove(tempFile.Name())
 
 	if err = l1.Save(tempFile.Name()); err != nil {

@@ -17,7 +17,7 @@ type item struct {
 
 type List []item
 
-// TODO dont allow to create a task with the same name as one which not completed
+// TODO: not allow to create a task with the same name as one which not completed
 
 // Add creates a new item and appends it to the List
 func (l *List) Add(name string) {
@@ -31,7 +31,7 @@ func (l *List) Add(name string) {
 	*l = append(*l, t)
 }
 
-// TODO clean up completed tasks from memory
+// TODO: clean up completed tasks from memory
 
 // Complete marks an item as completed if it exists
 func (l *List) Complete(i int) error {
@@ -83,4 +83,22 @@ func (l *List) Get(filename string) error {
 	}
 
 	return json.Unmarshal(file, l)
+}
+
+// String prints out formatted List
+// Implements Stringer interface
+func (l *List) String() string {
+	formatted := ""
+
+	for index, task := range *l {
+		prefix := "  "
+		if task.Done {
+			prefix = "X "
+		}
+
+		// Adjust the item number index to print number starting from 1 instead of 0
+		formatted += fmt.Sprintf("%s%d: %s\n", prefix, index+1, task.TaskName)
+	}
+
+	return formatted
 }
