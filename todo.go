@@ -17,6 +17,8 @@ type item struct {
 
 type List []item
 
+// TODO dont allow to create a task with the same name as one which not completed
+
 // Add creates a new item and appends it to the List
 func (l *List) Add(name string) {
 	t := item{
@@ -28,6 +30,8 @@ func (l *List) Add(name string) {
 
 	*l = append(*l, t)
 }
+
+// TODO clean up completed tasks from memory
 
 // Complete marks an item as completed if it exists
 func (l *List) Complete(i int) error {
