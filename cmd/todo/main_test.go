@@ -26,7 +26,7 @@ func TestMain(m *testing.M) {
 	build := exec.Command("go", "build", "-o", binName)
 
 	if err := build.Run(); err != nil {
-		fmt.Fprintf(os.Stderr, "Cannot build the tool %s: %s\n", binName, err)
+		fmt.Fprintf(os.Stderr, "cannot build the tool %s: %s\n", binName, err)
 		os.Exit(1)
 	}
 
@@ -68,7 +68,7 @@ func TestTodoCLI(t *testing.T) {
 		expected := task + "\n"
 
 		if expected != string(out) {
-			t.Errorf("Expected %q, got %q instead.", expected, string(out))
+			t.Errorf("expected %q, got %q instead.", expected, string(out))
 		}
 	})
 }
