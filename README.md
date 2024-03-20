@@ -1,7 +1,7 @@
-Introduction.
+## Introduction
 This CLI is a command-line tool that allows you to create and manage your To-Do lists efficiently. This tool provides a simple and intuitive way to keep track of your tasks and stay organized.
 
-Supported methods.
+## Supported methods
 - Add:
     Creates a new to-do item and appends it to the list.
 - Complete:
@@ -13,18 +13,21 @@ Supported methods.
 - Get:
     Obtains a list of items from a saved JSON file.
 
-
-Usage.
+## Usage
 To build the app, run the following command in the root folder:
 
+```
 > go build .
-
+```
 Above command will generate todo-cli file. This name is defined in the go.mod file and it will be the initialized module name.
 
 You can set an environment variable TODO_FILENAME to name the file where your tasks will be stored.
 
+```
 > set TODO_FILENAME=someName
-
+```
 After that you can run the file using the cmd and pass the task:
 
+```
 > .\todo-cli.exe -add New Task
+```
