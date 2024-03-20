@@ -11,13 +11,17 @@ import (
 	"todo"
 )
 
-const todoFileName = ".todo.json"
+var todoFileName = ".todo.json"
 
 func main() {
 	flag.Usage = func() {
 		fmt.Fprintf(flag.CommandLine.Output(), "%s tool. Developed for educational purposes.\n", os.Args[0])
 		fmt.Fprintln(flag.CommandLine.Output(), "Usage information:")
 		flag.PrintDefaults()
+	}
+
+	if os.Getenv("TODO_FILENAME") != "" {
+		todoFileName = os.Getenv("TODO_FILENAME")
 	}
 
 	flag.BoolVar(&todo.AddFlag, "add", false, "Task to be included in the ToDo list.")
