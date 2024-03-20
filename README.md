@@ -19,9 +19,9 @@ To build the app, run the following command in the root folder:
 ```
 > go build .
 ```
-Above command will generate todo-cli file. This name is defined in the go.mod file and it will be the initialized module name.
+Above command will generate todo-cli file. This name is defined in the `go.mod` file, and it will be the initialized module name.
 
-You can set an environment variable TODO_FILENAME to name the file where your tasks will be stored.
+You can set an environment variable `TODO_FILENAME` to name the file where your tasks will be stored.
 
 ```
 > set TODO_FILENAME=someName
