@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"strings"
+
 	"todo"
 )
 
@@ -19,9 +20,12 @@ func main() {
 		flag.PrintDefaults()
 	}
 
-	add := flag.Bool("add", false, "Task to be included in the ToDo list.")
-	list := flag.Bool("list", false, "List all tasks.")
-	complete := flag.Int("complete", 0, "Item to be completed.")
+	flag.BoolVar(&todo.AddFlag, "add", false, "Task to be included in the ToDo list.")
+	flag.BoolVar(&todo.ListFlag, "list", false, "List all tasks.")
+	flag.IntVar(&todo.CompleteFlag, "complete", 0, "Item to be completed.")
+	flag.IntVar(&todo.DelFlag, "del", 0, "Item to be deleted.")
+	flag.BoolVar(&todo.VerboseFlag, "verbose", false, "List all tasks with verbose information.")
+	flag.BoolVar(&todo.ActiveFlag, "active", false, "List only not completed tasks.")
 
 	flag.Parse()
 
@@ -33,10 +37,10 @@ func main() {
 	}
 
 	switch {
-	case *list:
+	case todo.ListFlag || todo.ActiveFlag || todo.VerboseFlag:
 		fmt.Print(l)
-	case *complete > 0:
-		if err := l.Complete(*complete); err != nil {
+	case todo.CompleteFlag > 0:
+		if err := l.Complete(todo.CompleteFlag); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
@@ -44,7 +48,7 @@ func main() {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}
-	case *add:
+	case todo.AddFlag:
 		// When any arguments (excluding flags) are provided they will be used as a new task
 		t, err := getTask(os.Stdin, flag.Args()...)
 		if err != nil {
@@ -54,6 +58,15 @@ func main() {
 		l.Add(t)
 
 		if err = l.Save(todoFileName); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+	case todo.DelFlag > 0:
+		if err := l.Delete(todo.DelFlag); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		if err := l.Save(todoFileName); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
 		}

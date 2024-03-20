@@ -55,7 +55,7 @@ func (l *List) Delete(i int) error {
 		return fmt.Errorf("delete method: item %d does not exist", i)
 	}
 
-	*l = append(ls[:i], ls[i+1:]...)
+	*l = append(ls[:i-1], ls[i:]...)
 	return nil
 }
 
@@ -96,9 +96,24 @@ func (l *List) String() string {
 			prefix = "X "
 		}
 
-		// Adjust the item number index to print number starting from 1 instead of 0
-		formatted += fmt.Sprintf("%s%d: %s\n", prefix, index+1, task.TaskName)
+		if VerboseFlag {
+			y, m, d := task.CreatedAt.Date()
+			h := task.CreatedAt.Hour()
+			min := task.CreatedAt.Minute()
+
+			if !(task.Done && ActiveFlag) {
+				// Adjust the item number index to print number starting from 1 instead of 0
+				formatted += fmt.Sprintf("%s%d: %s, crated at: %d %d %d %d:%d\n", prefix, index+1, task.TaskName, y, m, d, h, min)
+			}
+
+			continue
+		}
+
+		if !(task.Done && ActiveFlag) {
+			formatted += fmt.Sprintf("%s%d: %s\n", prefix, index+1, task.TaskName)
+		}
 	}
 
+	formatted += fmt.Sprintf("Total: %d tasks.\n", len(*l))
 	return formatted
 }

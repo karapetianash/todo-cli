@@ -3,6 +3,7 @@ package todo_test
 import (
 	"os"
 	"testing"
+
 	"todo"
 )
 
@@ -81,8 +82,8 @@ func TestDelete(t *testing.T) {
 		t.Errorf("expected List length 2, got %d instead.", len(l))
 	}
 
-	if l[1].TaskName != tasks[1] {
-		t.Errorf("expected %s, got %s instead.", tasks[1], l[1].TaskName)
+	if l[1].TaskName != tasks[2] {
+		t.Errorf("expected %s, got %s instead.", tasks[2], l[1].TaskName)
 	}
 }
 
