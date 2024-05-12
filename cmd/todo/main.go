@@ -8,7 +8,7 @@ import (
 	"os"
 	"strings"
 
-	"todo"
+	"github.com/karapetianash/todo-cli"
 )
 
 var todoFileName = ".todo.json"

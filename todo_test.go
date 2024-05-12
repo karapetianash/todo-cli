@@ -4,7 +4,7 @@ import (
 	"os"
 	"testing"
 
-	"todo"
+	"github.com/karapetianash/todo-cli"
 )
 
 // TestAdd tests the Add method of the List
